@@ -16,7 +16,7 @@ monthly_challenges={
     "october":"winters are comming",
     "september":"don't hibernate",
     "november":"don't do that thing",
-    "december":"celebrate your birthday"
+    "december":None
 
 }
 '''def index(request):
@@ -45,12 +45,12 @@ def challenges(request,month):
         #response_data = render_to_string("challenges/challenge.html")
         #return HttpResponse(response_data)
     except:
-        return HttpResponse("invalid month")
+        return render(request , "404.html")
 def challenges_int(request,month):
     months=list(monthly_challenges.keys())
     print(len(months))
     if month>len(months):
-        return HttpResponseNotFound()
+        return render(request,"404.html")
     redirect_month=str(months[month-1])
     redirect_path=reverse("month-challenge",args=[redirect_month])
     return HttpResponseRedirect(redirect_path)
